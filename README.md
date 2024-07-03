@@ -1,7 +1,3 @@
-Certainly! Here's a README template for your GitHub repository:
-
----
-
 # eCommerce Platform with React, Redux, Django & Postgres
 
 This project is an eCommerce platform built from scratch using React, Redux, Django, and Postgres. It includes essential features such as a shopping cart, product reviews, ratings, user profiles with order history, a checkout process with PayPal and credit card integration, JWT authentication, and more.
@@ -114,4 +110,3 @@ Project Link: [https://github.com/your_username/your_repository](https://github.
 
 ---
 
-Feel free to customize this README according to your specific project details, structure, and preferences. This template aims to provide a comprehensive overview and starting point for users and contributors to understand and engage with your eCommerce platform project.
