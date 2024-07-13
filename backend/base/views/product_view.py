@@ -47,6 +47,8 @@ def getTopProducts(request):
 def getProduct(request, pk):
     try:
         product = Product.objects.get(_id=pk)
+        if product == None:
+            return Response({'detail':'Product not found'}, status=status.HTTP_404_NOT_FOUND)
         serializer = ProductSerializer(product, many=False)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
@@ -72,7 +74,7 @@ def createProductReview(request, pk):
             review = Review.objects.create(
                 user=user,
                 product=product,
-                name=user.name,
+                name=user.username,
                 rating=data['rating'],
                 comment=data['comment']
             )
@@ -87,5 +89,75 @@ def createProductReview(request, pk):
             product.save()
 
             return Response({'detail': 'Review Added'}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'detail': e.args}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteProducts(request, pk):
+    print('user', request.user)
+    try:
+        product = Product.objects.get(_id=pk)
+        if product == None:
+            return Response({'detail': 'Product not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        product.delete()
+        return Response({'detail': 'Product was deleded'}, status=status.HTTP_200_OK)
+    except Exception as e :
+        return Response({'detail': e.args}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def createProduct(request):
+    user = request.user
+
+    try:
+        product = Product.objects.create(
+            user=user,
+            name='Sample Name',
+            price=0,
+            brand='Sample Brand',
+            countInStock=0,
+            category='Sample Category',
+            description='',
+        )
+
+        serializer = ProductSerializer(product, many=False)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
     except:
         return Response({'detail': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def updateProduct(request, pk):
+    data = request.data
+    product = Product.objects.get(_id=pk)
+
+    try:
+        product.name = data['name']
+        product.price = data['price']
+        product.brand = data['brand']
+        product.countInStock = data['countInStock']
+        product.category = data['category']
+        product.description = data['description']
+
+        product.save()
+        serializer = ProductSerializer(product, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response({'detail': 'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+def uploadImage(request):
+    data = request.data
+
+    product_id = data['product_id']
+    product = Product.objects.get(_id=product_id)
+
+    product.image = request.FILES.get('imgae')
+    product.save()
+    return Response({'detail': 'Image was uploaded'}, status=status.HTTP_200_OK)
+

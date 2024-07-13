@@ -12,9 +12,12 @@ from datetime import datetime
 def addOrderItems(request):
     user = request.user
     data = request.data
-    orderItems = data['orderItems']
 
-    try:
+    orderItems = data['orderItems']
+    if orderItems and len(orderItems) == 0:
+        return Response({'detail': 'No Order Items'}, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        try:
             order = Order.objects.create(
                 user=user,
                 paymentMethod=data['paymentMethod'],
@@ -22,6 +25,7 @@ def addOrderItems(request):
                 shippingPrice=data['shippingPrice'],
                 totalPrice=data['totalPrice']
             )
+
             shipping = ShippingAddress.objects.create(
                 order=order,
                 address=data['shippingAddress']['address'],
@@ -29,6 +33,7 @@ def addOrderItems(request):
                 postalcode=data['shippingAddress']['postaclcode'],
                 country=data['shippingAddress']['country']
             )
+
             for i in orderItems:
                 product = Product.objects.get(_id=i['_id'])
 
@@ -38,16 +43,16 @@ def addOrderItems(request):
                     name=product.name,
                     qty=i['qty'],
                     price=i['price'],
-                    image=product.image.url
+                    image=product.image.url,
                 )
 
                 product.countInStack -= item.qty
                 product.save()
 
             serializer = OrderSerializer(order, many=False)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-    except Exception as e:
-        return Response({'detail': e.args}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'detail': e.args}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
@@ -60,6 +65,17 @@ def getMyOrders(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response({'detail':'Order does not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getOrders(request):
+    try:
+        orders = Order.objects.all()
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response({'detail':'Orders does not found'}, status=status.HTTP_404_NOT_FOUND)
 
 
 @api_view(['get'])
@@ -85,6 +101,19 @@ def updateOrderToPaid(request, pk):
         order.isPaid = True
         order.paidAt = datetime.now()
         order.save()
-        return Response('Order was paid')
+        return Response({'detail':'Order was paid'}, status=status.HTTP_200_OK)
     except:
         return Response({'detail':'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateOrderToDeliverd(request, pk):
+    order = Order.objects.get(_id=pk)
+
+    order.isDeliverdd = True
+    order.deliveredAt = datetime.now()
+    order.save()
+
+    return Response({'detail':'Order was delivered'}, status=status.HTTP_200_OK)

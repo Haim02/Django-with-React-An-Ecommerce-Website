@@ -76,7 +76,7 @@ def updateUserProfile(request):
             user.password = make_password(data['password'])
 
         user.save()
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response({'detail':'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -87,5 +87,56 @@ def getUsers(request):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
         return Response(serializer.data)
+    except:
+        return Response({'detail':'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteUser(request, pk):
+    try:
+        userForDelete = User.objects.get(id=pk)
+        if userForDelete == None:
+            return Response({'detail':'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        userForDelete.delete()
+        return Response('User was deleted', status=status.HTTP_200_OK)
+    except:
+        return Response({'detail':'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getUserById(request, pk):
+    try:
+        user = User.objects.get(id=pk)
+        if user == None:
+            return Response({'detail':'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UserSerializer(user, many=False)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except:
+        return Response({'detail':'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def updateUser(request, pk):
+    try:
+        user = User.objects.get(id=pk)
+        if user == None:
+            return Response({'detail':'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        data = request.data
+
+        user.first_name = data['name']
+        user.username = data['email']
+        user.email = data['email']
+        user.is_staff = data['isAdmin']
+
+        user.save()
+
+        serializer = UserSerializer(user, many=False)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
     except:
         return Response({'detail':'Something went wrong'}, status=status.HTTP_400_BAD_REQUEST)

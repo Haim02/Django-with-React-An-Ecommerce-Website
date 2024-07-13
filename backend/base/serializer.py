@@ -65,26 +65,45 @@ class OrderItemSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderSerializer(serializers.ModelSerializer):
-    orders = serializers.SerializerMethodField(read_only=True)
-    shippingAddress = serializers.SerializerMethodField(method_name='get_shippingAddress', read_only=True)
+    orderItems = serializers.SerializerMethodField(read_only=True)
+    shippingAddress = serializers.SerializerMethodField(read_only=True)
     user = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Order
         fields = '__all__'
 
-    def get_orders(self, obj):
+    def get_orderItems(self, obj):
         items = obj.orderitem_set.all()
         serializer = OrderItemSerializer(items, many=True)
         return serializer.data
 
     def get_shippingAddress(self, obj):
-        address = obj.shippingAddress
-        serializer = ShippingAddressSerializer(address, many=False)
-        return serializer.data
+        try:
+            address = ShippingAddressSerializer(
+                obj.shippingaddress, many=False).data
+        except:
+            address = False
+        return address
 
     def get_user(self, obj):
         user = obj.user
         serializer = UserSerializer(user, many=False)
         return serializer.data
+
+    # def get_orders(self, obj):
+    #     items = obj.orderitem_set.all()
+    #     serializer = OrderItemSerializer(items, many=True)
+    #     return serializer.data
+
+    # def get_shippingAddress(self, obj):
+    #     address = obj.shippingAddress
+    #     serializer = ShippingAddressSerializer(address, many=False)
+    #     return serializer.data
+
+    # def get_user(self, obj):
+    #     user = obj.user
+    #     serializer = UserSerializer(user, many=False)
+    #     return serializer.data
 
 

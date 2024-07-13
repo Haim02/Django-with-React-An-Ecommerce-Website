@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,10 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base',
     # 'base.apps.BaseConfig',
     'rest_framework',
     'corsheaders',
+    'storages',
+    'base',
 ]
 
 REST_FRAMEWORK = {
@@ -111,7 +113,9 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'build')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,8 +136,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'proshop',
+        'USER': 'haim',
+        'PASSWORD': 'haim951753',
+        'HOST': 'proshop-identifier.c5ek2q820g6p.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
@@ -177,7 +185,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+    BASE_DIR / 'static',
+    BASE_DIR / 'build/static',
 ]
 
 MEDIA_ROOT = 'static/images'
@@ -201,6 +210,15 @@ CORS_ORIGIN_WHITELIST = (
 
 
 CORS_ALLOW_CREDENTIALS = True
+
+AWS_QUERYSTRING_AUTH = False
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
+AWS_ACCESS_KEY_ID= 'AKIA555J7PUEUI4SRH6S'
+AWS_SECRET_ACCESS_KEY= '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'
+AWS_STORAGE_BUCKET_NAME= 'proshop-bucket-django-demo'
+
+# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3BotoStorage"
 # APPEND_SLASH=False
 
 

@@ -11,25 +11,14 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from base.serializer import ProductSerializer, UserSerializer, UserSerializerWithToken
-
-
-
-# @csrf_exempt
-@api_view(['POST'])
-def login(request):
-    user = get_object_or_404(get_user_model(), username=request.data['username'])
-    if not user.check_password(request.data['password']):
-        return Response({'detail': "Not found"}, status=status.HTTP_404_NOT_FOUND)
-    token = Token.objects.get_or_create(user=user)
-    serializer = UserSerializer(user, many=False)
-    return Response({'token': token, 'user': UserSerializer.data})
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', TemplateView.as_view(template_name='index.html')),
     path('api/products/', include('base.urls.product_urls')),
     path('api/users/', include('base.urls.user_urls')),
     path('api/orders/', include('base.urls.order_urls')),
-    # path('api/users/login', login),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
