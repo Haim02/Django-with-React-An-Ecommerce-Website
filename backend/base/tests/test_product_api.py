@@ -15,6 +15,6 @@ class ProductApiTest(TestCase):
         res = self.client.get(GET_PRODUCTS_URL)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
-    # def test_get_product(self):
-    #     res = self.client.get(GET_PRODUCT_URL)
-    #     self.assertEqual(res.status_code, status.HTTP_200_OK)
+    def test_get_product(self):
+        res = self.client.get(GET_PRODUCT_URL)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)

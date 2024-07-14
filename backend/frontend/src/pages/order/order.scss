@@ -1,0 +1,69 @@
+.orderContainer{
+    padding: 0 70px;
+    .CheckoutStepsContainer{
+        padding: 0 400px;
+
+    }
+    .row {
+        display: flex;
+        justify-content: space-between;
+        .col {
+            margin-left: 20px;
+            .listGroup {
+                .hr {
+                    border: 1px solid rgb(238, 237, 237);
+                }
+
+                .listGroupItem {
+                    .listGroupItems {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        padding: 0 20px;
+                        .listGroupItem {
+                            .row {
+                                display: flex;
+                                justify-content: space-between;
+                                padding: 0 15px;
+
+                                .colImage {
+                                    width: 8%;
+                                    img {
+                                        max-width: 100%;
+                                        object-fit: cover;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .card {
+                border: solid gray 0.5px;
+                .listGroup {
+
+                    .listGroupItem {
+                        h2 {
+                            text-align: center;
+                        }
+                    padding: 10px;
+                    border-bottom: 0.5px solid black;
+                    .row {
+                        padding: 0 10px;
+                    }
+                    button {
+                        cursor: pointer;
+                        width: 230px;
+                        padding: 15px;
+                        margin: 10px;
+                        background-color: black;
+                        color: white;
+                        border: none;
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+        }
+    }
+}

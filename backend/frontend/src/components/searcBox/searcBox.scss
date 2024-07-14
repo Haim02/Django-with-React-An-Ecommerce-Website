@@ -1,0 +1,21 @@
+.searcBoxContainer {
+    input {
+        padding: 15px 0;
+        margin-right: 2px;
+    }
+
+    button{
+        cursor: pointer;
+        padding: 13.5px;
+        border: 2px solid rgb(74, 225, 74);
+        background-color: rgb(59, 58, 58);
+        color: rgb(79, 224, 100);
+        font-size: 15px;
+    }
+
+    button:hover {
+        color: white;
+        background-color: rgb(74, 225, 74);
+    }
+
+}

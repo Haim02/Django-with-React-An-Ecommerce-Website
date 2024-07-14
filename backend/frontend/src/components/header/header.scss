@@ -1,0 +1,42 @@
+.headerContainer {
+    background-color: rgb(59, 58, 58);
+    color: white;
+
+    #nav-dropdown{
+        color: greenyellow;
+    }
+
+    .navigatorContainer {
+        display: flex;
+        .homePage {
+            padding: 40px;
+        }
+
+        .navLink {
+            color: white;
+            text-decoration: none;
+        }
+
+        .navLinkLogout {
+            cursor: pointer;
+        }
+
+        .navContainer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding-right: 20px;
+            nav {
+                display: flex;
+                justify-content: space-between;
+                div {
+                    padding: 40px;
+                }
+
+            }
+            .navLinkSearcBox {
+                margin-left: auto;
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+.paginateContainer {
+    display: flex;
+    justify-content: center;
+
+    .linkContainer {
+        cursor: pointer;
+        padding: 5px 10px;
+        margin-left: 5px;
+        background-color: whitesmoke;
+        border: none;
+        font-size: 17px;
+
+        .link {
+            color: black;
+            text-decoration: none;
+        }
+    }
+    .linkContainer:hover {
+        border: 2px solid rgb(98, 95, 95);
+    }
+
+    .linkContainerActiv {
+        background-color: black;
+    }
+}

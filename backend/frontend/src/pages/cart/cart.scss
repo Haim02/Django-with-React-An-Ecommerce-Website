@@ -1,0 +1,76 @@
+.cartContainer {
+    padding-left: 60px;
+    padding-right: 60px;
+
+    .col {
+
+    .listGroup {
+        display: flex;
+        justify-content: space-between;
+        .listGroupItems {
+            display: flex;
+            flex-direction: column-reverse;
+            margin-right: 10px;
+        }
+        .listGroupItem {
+            .row {
+                border: 0.4px solid rgb(173, 172, 172);
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px;
+
+            .colImage {
+                width: 15%;
+
+                img {
+                    max-width: 100%;
+                    object-fit: cover;
+                }
+            }
+            .col {
+                width: 20%;
+                form {
+                    .selectNum {
+                        width: 85px;
+                        height: 35px;
+                        font-size: 15px;
+                        background-color: rgb(222, 221, 221);
+                        font-family: Verdana, Geneva, Tahoma, sans-serif;
+                    }
+                }
+            }
+            button {
+                width: 90px;
+                    padding: 15px;
+                    margin: 10px;
+                    background-color: rgb(244, 65, 65);
+                    color: white;
+                    border: none;
+                    font-size: 15px;
+                    cursor: pointer;
+            }
+            }
+        }
+        .colBtn{
+            .listGroup {
+                border: solid gray 0.5px;
+                padding: 20px;
+            }
+            .listItemBtn {
+                border: 0.5px solid black;
+                button {
+                    cursor: pointer;
+                    width: 230px;
+                    padding: 15px;
+                    margin: 10px;
+                    background-color: black;
+                    color: white;
+                    border: none;
+                    font-size: 15px;
+                }
+            }
+    }
+}
+      }
+    }

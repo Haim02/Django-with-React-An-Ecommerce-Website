@@ -1,0 +1,13 @@
+.homeContainer {
+    padding: 40px;
+    
+    .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .col {
+            margin: 6px;
+        }
+    }
+}

@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-qx7kc20#0n=!rek57@8nm(momvi=#r@$pmuzysoohs)$(&df^!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'proshop-app-demo-ef164d94d68c.herokuapp.com/']
 
 
 # Application definition
@@ -39,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'base.apps.BaseConfig',
     'rest_framework',
     'corsheaders',
     'storages',
@@ -96,9 +96,10 @@ SIMPLE_JWT = {
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-        'django.middleware.common.BrokenLinkEmailsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.common.CommonMiddleware',
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,11 +138,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proshop',
-        'USER': 'haim',
-        'PASSWORD': 'haim951753',
-        'HOST': 'proshop-identifier.c5ek2q820g6p.us-east-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'NAME': config('NAME'),
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': config('HOST'),
+        'PORT': config('PORT'),
     }
 }
 
@@ -189,7 +190,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'build/static',
 ]
 
-MEDIA_ROOT = 'static/images'
+MEDIA_ROOT = BASE_DIR / 'static/images'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -214,9 +216,6 @@ CORS_ALLOW_CREDENTIALS = True
 AWS_QUERYSTRING_AUTH = False
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 # DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
-AWS_ACCESS_KEY_ID= 'AKIA555J7PUEUI4SRH6S'
-AWS_SECRET_ACCESS_KEY= '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'
-AWS_STORAGE_BUCKET_NAME= 'proshop-bucket-django-demo'
 
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3BotoStorage"
 # APPEND_SLASH=False

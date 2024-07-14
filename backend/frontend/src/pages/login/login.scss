@@ -1,0 +1,50 @@
+.loginContainer {
+    .row {
+        .col {
+            display: grid;
+            .formContainer {
+                align-self: center;
+                justify-self: center;
+                width: 40%;
+               
+                form{
+                    padding: 20px;
+                    .group {
+                        display: flex;
+                        flex-direction: column;
+
+                        p {
+                            color: red;
+                        }
+
+                        label {
+                            margin-bottom: 10px;
+                            font-weight: 250;
+                        }
+
+                        input {
+                            border: none;
+                            margin-bottom: 6px;
+                            padding: 20px;
+                            background-color: rgb(219, 216, 237);
+                            input::placeholder{
+                                color: red;
+                            }
+                        }
+                    }
+                    button {
+                        cursor: pointer;
+                        padding: 13px 40px;
+                        background-color: black;
+                        color: white;
+                        border: none;
+                        font-size: 17px;
+                    }
+                }
+                Link{
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

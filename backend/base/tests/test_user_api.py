@@ -37,19 +37,19 @@ class PublicUserApiTests(TestCase):
 
          self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-    # def test_login(self):
-    #      user = {
-    #         'username': 'test@gmail.com',
-    #         'email': 'test@gmail.com',
-    #         'password': 'test12345678'
-    #     }
+    def test_login(self):
+         user = {
+            'username': 'test@gmail.com',
+            'email': 'test@gmail.com',
+            'password': 'test12345678'
+        }
 
-    #      create_user(**user)
-    #      login_user = {
-    #         'username': 'test@gmail.com',
-    #         'email': 'test@gmail.com',
-    #         'password': 'test12345678'
-    #     }
-    #      res = self.client.post(TOKEN_URL, login_user)
-    #      self.assertIn('token', res.data)
-    #      self.assertEqual(res.status_code, status.HTTP_200_OK)
+         create_user(**user)
+         login_user = {
+            'username': 'test@gmail.com',
+            'email': 'test@gmail.com',
+            'password': 'test12345678'
+        }
+         res = self.client.post(TOKEN_URL, login_user)
+         self.assertIn('token', res.data)
+         self.assertEqual(res.status_code, status.HTTP_200_OK)

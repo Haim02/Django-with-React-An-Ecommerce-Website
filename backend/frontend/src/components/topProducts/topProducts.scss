@@ -1,0 +1,22 @@
+.topProductsContainer {
+    .topProductsItem {
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(71, 67, 67);
+        margin: 0 2px;
+
+        a{
+            text-decoration: none;
+            color: white;
+            text-align: center;
+        }
+
+        img{
+            width: 80%;
+            height: 75%;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+    }
+}
