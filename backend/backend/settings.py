@@ -89,7 +89,6 @@ SIMPLE_JWT = {
     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
-    # "TOKEN_OBTAIN_SERIALIZER": "my_app.serializers.MyTokenObtainPairSerializer",
 }
 
 
@@ -214,10 +213,11 @@ CORS_ORIGIN_WHITELIST = (
 CORS_ALLOW_CREDENTIALS = True
 
 AWS_QUERYSTRING_AUTH = False
-# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-# DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
 
-# DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3BotoStorage"
-# APPEND_SLASH=False
+AWS_ACCESS_KEY_ID= config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY= config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME= config('AWS_STORAGE_BUCKET_NAME')
+
+
 
 
